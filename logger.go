@@ -11,7 +11,7 @@ type GasConfig struct {
 	Message string
 }
 
-// Gas returns a `air.Gas` that is used to log ervery request based on the gc.
+// Gas returns an `air.Gas` that is used to log ervery request based on the gc.
 func Gas(gc GasConfig) air.Gas {
 	if gc.Message == "" {
 		gc.Message = "finished request-response cycle"
