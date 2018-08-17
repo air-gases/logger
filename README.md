@@ -28,7 +28,9 @@ import (
 )
 
 func main() {
-	air.Gases = []air.Gas{logger.Gas}
+	air.Gases = []air.Gas{
+		logger.Gas(logger.GasConfig{}),
+	}
 	air.GET("/", func(req *air.Request, res *air.Response) error {
 		return res.String("Go and see what your terminal outputs.")
 	})
