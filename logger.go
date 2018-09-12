@@ -3,7 +3,7 @@ package logger
 import (
 	"time"
 
-	"github.com/sheng/air"
+	"github.com/aofei/air"
 )
 
 // GasConfig is a set of configurations for the `Gas()`.

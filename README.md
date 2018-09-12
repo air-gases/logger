@@ -1,7 +1,7 @@
 # Logger
 
 A useful gas that used to log every request for the web applications built using
-[Air](https://github.com/sheng/air).
+[Air](https://github.com/aofei/air).
 
 ## Installation
 
@@ -24,7 +24,7 @@ package main
 
 import (
 	"github.com/air-gases/logger"
-	"github.com/sheng/air"
+	"github.com/aofei/air"
 )
 
 func main() {
