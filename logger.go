@@ -1,8 +1,6 @@
 package logger
 
 import (
-	"net"
-	"strings"
 	"time"
 
 	"github.com/aofei/air"
@@ -25,16 +23,9 @@ func Gas(gc GasConfig) air.Gas {
 			err := next(req, res)
 			endTime := time.Now()
 
-			clientIP, _, _ := net.SplitHostPort(req.RemoteAddr)
-			if xff := req.Headers["X-Forwarded-For"]; xff != "" {
-				clientIP = strings.Split(xff, ", ")[0]
-			} else if xrIP := req.Headers["X-Real-IP"]; xrIP != "" {
-				clientIP = xrIP
-			}
-
 			extras := map[string]interface{}{
 				"remote_addr": req.RemoteAddr,
-				"client_ip":   clientIP,
+				"client_ip":   req.ClientIP,
 				"method":      req.Method,
 				"path":        req.URL.Path,
 				"start_time":  startTime.UnixNano(),
