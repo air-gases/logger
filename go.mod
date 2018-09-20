@@ -1,3 +1,3 @@
 module github.com/air-gases/logger
 
-require github.com/aofei/air v0.0.0-20180919062828-0eda4d4e95db
+require github.com/aofei/air v0.0.0-20180920061329-807b9a487992
