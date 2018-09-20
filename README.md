@@ -32,7 +32,7 @@ func main() {
 		logger.Gas(logger.GasConfig{}),
 	}
 	air.GET("/", func(req *air.Request, res *air.Response) error {
-		return res.String("Go and see what your terminal outputs.")
+		return res.WriteString("Go and see what your terminal outputs.")
 	})
 	air.Serve()
 }
