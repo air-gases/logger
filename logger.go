@@ -28,7 +28,7 @@ func Gas(gc GasConfig) air.Gas {
 				"status":         res.Status,
 				"path":           req.Path,
 				"remote_address": req.RemoteAddress,
-				"client_ip":      req.ClientIP,
+				"client_address": req.ClientAddress,
 				"start_time":     startTime.UnixNano(),
 				"end_time":       endTime.UnixNano(),
 				"latency":        endTime.Sub(startTime),
