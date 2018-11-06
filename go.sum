@@ -1,7 +1,7 @@
 github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/aofei/air v0.0.0-20181106033641-b3bd06ece584 h1:k4KRh96GJCn8GmYEPSwsXNs8AkQKx0D61TIhZXxW4hs=
-github.com/aofei/air v0.0.0-20181106033641-b3bd06ece584/go.mod h1:Wtj7cRK1amdJbKb4+hWvwiuhtCDKxzOIh0pxv6dNkhE=
+github.com/aofei/air v0.0.0-20181106035338-0ac858abaef8 h1:/iipR2h49Ek3PNt1pCzMXvxp/X2WkgK9Aw+J7xzwSIE=
+github.com/aofei/air v0.0.0-20181106035338-0ac858abaef8/go.mod h1:Wtj7cRK1amdJbKb4+hWvwiuhtCDKxzOIh0pxv6dNkhE=
 github.com/cheekybits/is v0.0.0-20150225183255-68e9c0620927/go.mod h1:h/aW8ynjgkuj+NQRlZcDbAbM1ORAbXjXX77sX7T289U=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
