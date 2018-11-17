@@ -24,23 +24,23 @@ func Gas(gc GasConfig) air.Gas {
 			endTime := time.Now()
 
 			extras := map[string]interface{}{
-				"method":         req.Method,
-				"status":         res.Status,
-				"path":           req.Path,
 				"remote_address": req.RemoteAddress(),
 				"client_address": req.ClientAddress(),
+				"method":         req.Method,
+				"path":           req.Path,
+				"bytes_in":       req.ContentLength,
+				"bytes_out":      res.ContentLength,
+				"status":         res.Status,
 				"start_time":     startTime.UnixNano(),
 				"end_time":       endTime.UnixNano(),
 				"latency":        endTime.Sub(startTime),
-				"bytes_in":       req.ContentLength,
-				"bytes_out":      res.ContentLength,
 			}
 
 			if err != nil {
 				extras["error"] = err.Error()
-				air.ERROR(gc.Message, extras)
+				req.Air.ERROR(gc.Message, extras)
 			} else {
-				air.INFO(gc.Message, extras)
+				req.Air.INFO(gc.Message, extras)
 			}
 
 			return err
