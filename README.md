@@ -28,13 +28,14 @@ import (
 )
 
 func main() {
-	air.Pregases = []air.Gas{
+	a := air.Default
+	a.Pregases = []air.Gas{
 		logger.Gas(logger.GasConfig{}),
 	}
-	air.GET("/", func(req *air.Request, res *air.Response) error {
+	a.GET("/", func(req *air.Request, res *air.Response) error {
 		return res.WriteString("Go and see what your terminal outputs.")
 	})
-	air.Serve()
+	a.Serve()
 }
 ```
 
