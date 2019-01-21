@@ -4,15 +4,22 @@ import (
 	"time"
 
 	"github.com/aofei/air"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 )
 
 // GasConfig is a set of configurations for the `Gas()`.
 type GasConfig struct {
+	Logger  *zerolog.Logger
 	Message string
 }
 
 // Gas returns an `air.Gas` that is used to log ervery request based on the gc.
 func Gas(gc GasConfig) air.Gas {
+	if gc.Logger == nil {
+		gc.Logger = &log.Logger
+	}
+
 	if gc.Message == "" {
 		gc.Message = "finished request-response cycle"
 	}
@@ -23,25 +30,26 @@ func Gas(gc GasConfig) air.Gas {
 			err := next(req, res)
 			endTime := time.Now()
 
-			extras := map[string]interface{}{
-				"remote_address": req.RemoteAddress(),
-				"client_address": req.ClientAddress(),
-				"method":         req.Method,
-				"path":           req.Path,
-				"bytes_in":       req.ContentLength,
-				"bytes_out":      res.ContentLength,
-				"status":         res.Status,
-				"start_time":     startTime.UnixNano(),
-				"end_time":       endTime.UnixNano(),
-				"latency":        endTime.Sub(startTime),
+			var logEvent *zerolog.Event
+			if err != nil {
+				logEvent = gc.Logger.Error().Err(err)
+			} else {
+				logEvent = gc.Logger.Info()
 			}
 
-			if err != nil {
-				extras["error"] = err.Error()
-				req.Air.ERROR(gc.Message, extras)
-			} else {
-				req.Air.INFO(gc.Message, extras)
-			}
+			logEvent.
+				Str("app_name", req.Air.AppName).
+				Str("remote_address", req.RemoteAddress()).
+				Str("client_address", req.ClientAddress()).
+				Str("method", req.Method).
+				Str("path", req.Path).
+				Int64("bytes_in", req.ContentLength).
+				Int64("bytes_out", res.ContentLength).
+				Int("status", res.Status).
+				Time("start_time", startTime).
+				Time("end_time", endTime).
+				Dur("latency", endTime.Sub(startTime)).
+				Msg(gc.Message)
 
 			return err
 		}
