@@ -8,7 +8,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-// GasConfig is a set of configurations for the `Gas()`.
+// GasConfig is a set of configurations for the `Gas`.
 type GasConfig struct {
 	Logger  *zerolog.Logger
 	Message string
