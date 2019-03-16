@@ -25,33 +25,40 @@ func Gas(gc GasConfig) air.Gas {
 	}
 
 	return func(next air.Handler) air.Handler {
-		return func(req *air.Request, res *air.Response) error {
+		return func(req *air.Request, res *air.Response) (err error) {
 			startTime := time.Now()
-			err := next(req, res)
-			endTime := time.Now()
+			res.Defer(func() {
+				endTime := time.Now()
 
-			var logEvent *zerolog.Event
-			if err != nil {
-				logEvent = gc.Logger.Error().Err(err)
-			} else {
-				logEvent = gc.Logger.Info()
-			}
+				var logEvent *zerolog.Event
+				if err != nil {
+					logEvent = gc.Logger.Error().Err(err)
+				} else {
+					logEvent = gc.Logger.Info()
+				}
 
-			logEvent.
-				Str("app_name", req.Air.AppName).
-				Str("remote_address", req.RemoteAddress()).
-				Str("client_address", req.ClientAddress()).
-				Str("method", req.Method).
-				Str("path", req.Path).
-				Int64("bytes_in", req.ContentLength).
-				Int64("bytes_out", res.ContentLength).
-				Int("status", res.Status).
-				Time("start_time", startTime).
-				Time("end_time", endTime).
-				Dur("latency", endTime.Sub(startTime)).
-				Msg(gc.Message)
+				logEvent.
+					Str("app_name", req.Air.AppName).
+					Str(
+						"remote_address",
+						req.RemoteAddress(),
+					).
+					Str(
+						"client_address",
+						req.ClientAddress(),
+					).
+					Str("method", req.Method).
+					Str("path", req.Path).
+					Int64("bytes_in", req.ContentLength).
+					Int64("bytes_out", res.ContentLength).
+					Int("status", res.Status).
+					Time("start_time", startTime).
+					Time("end_time", endTime).
+					Dur("latency", endTime.Sub(startTime)).
+					Msg(gc.Message)
+			})
 
-			return err
+			return next(req, res)
 		}
 	}
 }
