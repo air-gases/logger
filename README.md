@@ -52,17 +52,17 @@ then visit `http://localhost:8080`.
 
 ## Community
 
-If you want to discuss this gas, or ask questions about it, simply post
-questions or ideas [here](https://github.com/air-gases/logger/issues).
+If you want to discuss Logger, or ask questions about it, simply post questions
+or ideas [here](https://github.com/air-gases/logger/issues).
 
 ## Contributing
 
-If you want to help build this gas, simply follow
+If you want to help build Logger, simply follow
 [this](https://github.com/air-gases/logger/wiki/Contributing) to send pull
 requests [here](https://github.com/air-gases/logger/pulls).
 
 ## License
 
-This gas is licensed under the Unlicense.
+This project is licensed under the Unlicense.
 
 License can be found [here](LICENSE).
