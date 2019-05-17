@@ -27,6 +27,10 @@ func Gas(gc GasConfig) air.Gas {
 	return func(next air.Handler) air.Handler {
 		return func(req *air.Request, res *air.Response) (err error) {
 			startTime := time.Now()
+			remoteAddress := req.RemoteAddress()
+			clientAddress := req.ClientAddress()
+			method := req.Method
+			path := req.Path
 			res.Defer(func() {
 				endTime := time.Now()
 
@@ -39,16 +43,10 @@ func Gas(gc GasConfig) air.Gas {
 
 				logEvent.
 					Str("app_name", req.Air.AppName).
-					Str(
-						"remote_address",
-						req.RemoteAddress(),
-					).
-					Str(
-						"client_address",
-						req.ClientAddress(),
-					).
-					Str("method", req.Method).
-					Str("path", req.Path).
+					Str("remote_address", remoteAddress).
+					Str("client_address", clientAddress).
+					Str("method", method).
+					Str("path", path).
 					Int64("bytes_in", req.ContentLength).
 					Int64("bytes_out", res.ContentLength).
 					Int("status", res.Status).
