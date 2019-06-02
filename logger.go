@@ -21,34 +21,33 @@ func Gas(gc GasConfig) air.Gas {
 		gc.Logger = &log.Logger
 	}
 
-	if gc.Message == "" {
-		gc.Message = "finished request-response cycle"
-	}
-
 	return func(next air.Handler) air.Handler {
 		return func(req *air.Request, res *air.Response) (err error) {
 			startTime := time.Now()
-
-			event := gc.Logger.Log().
-				Str("app_name", req.Air.AppName).
-				Str("remote_address", req.RemoteAddress())
-			if gc.IncludeClientAddress {
-				event.Str("client_address", req.ClientAddress())
-			}
-
-			event.Str("method", req.Method).
-				Str("path", req.Path)
-
 			res.Defer(func() {
 				endTime := time.Now()
 
-				event.Int64("bytes_in", req.ContentLength).
+				logEvent := gc.Logger.Err(err).
+					Str("app_name", req.Air.AppName).
+					Str(
+						"remote_address",
+						req.RemoteAddress(),
+					)
+				if gc.IncludeClientAddress {
+					logEvent.Str(
+						"client_address",
+						req.ClientAddress(),
+					)
+				}
+
+				logEvent.Str("method", req.Method).
+					Str("path", req.Path).
+					Int64("bytes_in", req.ContentLength).
 					Int64("bytes_out", res.ContentLength).
 					Int("status", res.Status).
 					Time("start_time", startTime).
 					Time("end_time", endTime).
 					Dur("latency", endTime.Sub(startTime)).
-					Err(err).
 					Msg(gc.Message)
 			})
 
