@@ -33,12 +33,19 @@ func Gas(gc GasConfig) air.Gas {
 			res.Defer(func() {
 				endTime := time.Now()
 
-				logEvent := gc.Logger.Err(err).
-					Str("app_name", req.Air.AppName).
-					Str(
-						"remote_address",
-						req.RemoteAddress(),
+				logEvent := gc.Logger.Err(err)
+				if gc.Logger == &log.Logger {
+					logEvent = logEvent.Str(
+						"app_name",
+						req.Air.AppName,
 					)
+				}
+
+				logEvent.Str(
+					"remote_address",
+					req.RemoteAddress(),
+				)
+
 				if gc.IncludeClientAddress {
 					logEvent.Str(
 						"client_address",
