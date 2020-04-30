@@ -3,6 +3,9 @@ module github.com/air-gases/logger
 go 1.13
 
 require (
-	github.com/aofei/air v0.15.6
+	github.com/allegro/bigcache v1.2.1 // indirect
+	github.com/aofei/air v0.16.0
+	github.com/kr/pretty v0.1.0 // indirect
 	github.com/rs/zerolog v1.18.0
+	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 )
