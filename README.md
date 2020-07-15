@@ -1,6 +1,6 @@
 # Logger
 
-[![GoDoc](https://godoc.org/github.com/air-gases/logger?status.svg)](https://godoc.org/github.com/air-gases/logger)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/air-gases/logger)](https://pkg.go.dev/github.com/air-gases/logger)
 
 A useful gas that used to log every request for the web applications built using
 [Air](https://github.com/aofei/air).
